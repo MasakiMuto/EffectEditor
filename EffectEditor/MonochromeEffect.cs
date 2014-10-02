@@ -52,7 +52,10 @@ namespace ShaderEffectLibrary
         static MonochromeEffect()
         {
             pixelShader = new PixelShader();
-            pixelShader.UriSource = new Uri(System.IO.Path.GetFullPath("multi.ps"));
+			if (!System.Reflection.Assembly.GetExecutingAssembly().Location.Contains("VisualStudio"))
+			{
+				pixelShader.UriSource = new Uri(System.IO.Path.GetFullPath("multi.ps"));
+			}
         }
 
         /// <summary>
@@ -61,7 +64,6 @@ namespace ShaderEffectLibrary
         public MonochromeEffect()
         {
             this.PixelShader = pixelShader;
-
             UpdateShaderValue(FilterColorProperty);
             UpdateShaderValue(InputProperty);
         }

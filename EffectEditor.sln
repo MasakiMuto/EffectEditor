@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EffectEditor", "EffectEditor\EffectEditor.csproj", "{FFD20A15-1583-4389-99A1-5268266D974A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParticleEngine", "..\MasaLibs\ParticleEngine\ParticleEngine.csproj", "{30D007CC-761B-4DF9-A4C5-14B52D76BF79}"
@@ -10,6 +12,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasaLib", "..\MasaLibs\MasaLib\MasaLib.csproj", "{BADD7C9A-BC50-46CF-882C-58D597DC8495}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasaLibXNA", "..\MasaLibs\MasaLibXNA\MasaLibXNA.csproj", "{C91DC223-ED7F-4E12-B465-FBA807F6817A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E8A9EE62-0225-4087-B66D-D38E5F7BEE16}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
