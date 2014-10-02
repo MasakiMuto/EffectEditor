@@ -8,7 +8,7 @@ namespace EffectEditor
 {
 	internal static class Util
 	{
-		public static Color FromXColor(Microsoft.Xna.Framework.Vector4 col)
+		public static Color FromXColor(SharpDX.Vector4 col)
 		{
 			Func<float, byte> convert = f => (byte)(f * 255);
 			return new Color()
@@ -20,9 +20,9 @@ namespace EffectEditor
 			};
 		}
 
-		public static Microsoft.Xna.Framework.Color FromWColor(Color col)
+		public static SharpDX.Color FromWColor(Color col)
 		{
-			return new Microsoft.Xna.Framework.Color(col.R, col.G, col.B, col.A);
+			return new SharpDX.Color(col.R, col.G, col.B, col.A);
 		}
 	}
 }

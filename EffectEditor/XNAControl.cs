@@ -4,8 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Masa.ParticleEngine;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using SharpDX.Toolkit.Graphics;
 
 namespace EffectEditor
 {
@@ -52,17 +51,26 @@ namespace EffectEditor
 				return;
 			}
 
-			device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Util.FromWColor(Window.backgroundColor.SelectedColor), 1, 0);
+			//device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Util.FromWColor(Window.backgroundColor.SelectedColor), 1, 0);
+			BeginDraw();
 			EffectProject.Draw();
 			try
 			{
 				device.Present();
 			}
-			catch (DeviceLostException)
+			catch
 			{
 				Reset();
 				GC.Collect();
 			}
+		}
+
+		void BeginDraw()
+		{
+			device.ClearState();
+			device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Util.FromWColor(Window.backgroundColor.SelectedColor), 1, 0);
+			device.SetRenderTargets(device.DepthStencilBuffer, device.BackBuffer);
+			device.SetViewport(new SharpDX.ViewportF(0, 0, device.BackBuffer.Width, device.BackBuffer.Height));
 		}
 
 		protected override void OnCreateControl()
@@ -86,21 +94,33 @@ namespace EffectEditor
 
 		void InitDevice()
 		{
+			var format = PixelFormat.R8G8B8A8.UNorm;
 			var pp = new PresentationParameters()
 			{
 				BackBufferWidth = (int)this.Width,
 				BackBufferHeight = (int)this.Height,
 				DepthStencilFormat = DepthFormat.Depth24Stencil8,
 				DeviceWindowHandle = this.Handle,
-				RenderTargetUsage = RenderTargetUsage.PreserveContents,
+				//RenderTargetUsage = SharpDX.DXGI.Usage.BackBuffer,
 				IsFullScreen = false,
-				BackBufferFormat = SurfaceFormat.Color,
-
+				BackBufferFormat = format,
+				//BackBufferFormat = SurfaceFormat.Color,
+				PresentationInterval = PresentInterval.Immediate,
 			};
 
 			try
 			{
-				device = new GraphicsDevice(GraphicsAdapter.DefaultAdapter, GraphicsProfile.HiDef, pp);
+				device = GraphicsDevice.New(GraphicsAdapter.Default);
+				var target = RenderTarget2D.New(device, pp.BackBufferWidth, pp.BackBufferHeight, pp.BackBufferFormat);
+				//device.Presenter = new RenderTargetGraphicsPresenter(device, target, DepthFormat.Depth16);
+
+				device.Presenter = new SwapChainGraphicsPresenter(device, pp);
+				device.SetRenderTargets(device.DepthStencilBuffer, device.BackBuffer);
+				//device.SetRenderTargets(DepthStencilBuffer.New(device, pp.BackBufferWidth, pp.BackBufferHeight, pp.DepthStencilFormat),
+				//	target);
+				device.SetViewport(new SharpDX.ViewportF(0, 0, device.BackBuffer.Width, device.BackBuffer.Height));
+				device.ClearState();
+				//device = new GraphicsDevice(GraphicsAdapter.DefaultAdapter, GraphicsProfile.HiDef, pp);
 			}
 			catch (Exception e)
 			{
@@ -152,7 +172,8 @@ namespace EffectEditor
 		/// </summary>
 		void ReloadContent()
 		{
-			effect = new Effect(device, File.ReadAllBytes("particle.bin"));
+			//effect = new Effect(device, File.ReadAllBytes("particle.bin"));
+			effect = new Effect(device, new EffectCompiler().CompileFromFile("particle.fx").EffectData);
 			EffectProject.SetEffect(effect);
 		}
 
@@ -193,11 +214,13 @@ namespace EffectEditor
 			try
 			{
 				file = File.OpenRead(fileName);
-				var tex = Texture2D.FromStream(device, file);
-				Color[] buffer = new Color[tex.Width * tex.Height];
+				//var tex = Texture2D.FromStream(device, file);
+				var tex = Texture2D.Load(device, file);
+				var buffer = new SharpDX.Color[tex.Width * tex.Height];
 				tex.GetData(buffer);
-				tex.SetData(buffer.Select(c => c * (c.A / 255f)).ToArray());
-				return tex;
+				//tex.SetData(buffer.Select(c => c * (c.A / 255f)).ToArray());
+				return Texture2D.New(device, tex.Width, tex.Height, tex.Format, buffer.Select(x => SharpDX.Color.Premultiply(x).ToRgba()).ToArray());
+				//return tex;
 			}
 			catch (Exception)
 			{
@@ -214,8 +237,9 @@ namespace EffectEditor
 
 		Texture2D CreateDummyTexture()
 		{
-			var tex = new Texture2D(device, 1, 1);
-			tex.SetData(new[] { Color.White });
+			//var tex = new Texture2D(device, 1, 1);
+			var tex = Texture2D.New<SharpDX.Color>(device, 1, 1, PixelFormat.R8G8B8A8.UInt, new[] { SharpDX.Color.White });
+			//tex.SetData(new[] { Color.White });
 			return tex;
 		}
 

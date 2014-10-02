@@ -5,9 +5,9 @@ using System.Linq;
 using System.Xml.Linq;
 using Masa.ParticleEngine;
 using Masa.ScriptEngine;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using TextureFunc = System.Func<string, Microsoft.Xna.Framework.Graphics.Texture2D>;
+using SharpDX.Toolkit.Graphics;
+using SharpDX;
+using TextureFunc = System.Func<string, SharpDX.Toolkit.Graphics.Texture2D>;
 using Masa.Lib;
 
 namespace EffectEditor
@@ -56,7 +56,7 @@ namespace EffectEditor
 
 		public EffectProject(GraphicsDevice gd, TextureFunc textureFunc)
 		{
-			generatePosition = new Vector2(gd.Viewport.Width, gd.Viewport.Height) * .5f;
+			generatePosition = new Vector2(gd.BackBuffer.Width, gd.BackBuffer.Height) * .5f;
 			device = gd;
 			//var content = new ContentManager(new GraphicService(device));
 			Is2D = true;
@@ -158,7 +158,8 @@ namespace EffectEditor
 			{
 				particle = new ScriptEffectManager(
 					script, device, effect, ParticleMode.ThreeD,
-					Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, device.Viewport.AspectRatio, 1, 100),
+					Matrix.PerspectiveFovRH(SharpDX.MathUtil.PiOverFour, device.Viewport.AspectRatio, 1, 100),
+					//Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, device.Viewport.AspectRatio, 1, 100),
 					new Vector2(device.Viewport.Width, device.Viewport.Height), pmi, rand);
 				//particle = new ScriptEffectManager(script, device, effect, ParticleMode.ThreeD, 400, 480, PMIDict.Values.
 				//Select(i => i.CreatePMI(textureGetFunction)).ToArray(),
@@ -225,7 +226,8 @@ namespace EffectEditor
 		{
 			Vector3 Position = Vector3.Zero;
 
-			return Matrix.CreateLookAt(Position - Vector3.Forward * 10, Position, Vector3.Up);
+			return Matrix.LookAtRH(Position - Vector3.ForwardRH, Position, Vector3.Up);
+			//return Matrix.CreateLookAt(Position - Vector3.Forward * 10, Position, Vector3.Up);
 			//return Matrix.CreateLookAt(Position, Target, Upper);
 		}
 
