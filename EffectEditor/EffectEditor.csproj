@@ -42,8 +42,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MasaLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MasaLib.1.0.0.0\lib\net40-Client\MasaLib.dll</HintPath>
+    </Reference>
+    <Reference Include="MasaLibXNA, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MasaLibXNA.1.0.0.0\lib\net40\MasaLibXNA.dll</HintPath>
+    </Reference>
     <Reference Include="Ookii.Dialogs.Wpf">
       <HintPath>..\..\..\Library\Ookii.Dialogs\Ookii.Dialogs.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="ParticleEngine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ParticleEngine.1.0.0.0\lib\net40-Client\ParticleEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="ScriptEngine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ScriptEngine.1.0.0.0\lib\net40-Client\ScriptEngine.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX, Version=2.6.2.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -53,6 +69,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(SharpDXPackageBinDir)\SharpDX.Direct3D11.dll</HintPath>
     </Reference>
+    <Reference Include="SharpDX.DirectInput, Version=2.6.2.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharpDXPackageBinDir)\SharpDX.DirectInput.dll</HintPath>
+    </Reference>
     <Reference Include="SharpDX.DXGI, Version=2.6.2.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(SharpDXPackageBinDir)\SharpDX.DXGI.dll</HintPath>
@@ -61,9 +81,20 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(SharpDXPackageBinDir)\SharpDX.Toolkit.dll</HintPath>
     </Reference>
+    <Reference Include="SharpDX.Toolkit.Game, Version=2.6.2.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharpDXPackageBinDir)\SharpDX.Toolkit.Game.dll</HintPath>
+    </Reference>
     <Reference Include="SharpDX.Toolkit.Graphics, Version=2.6.2.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(SharpDXPackageBinDir)\SharpDX.Toolkit.Graphics.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Toolkit.Input">
+      <HintPath>$(SharpDXPackageBinDir)\SharpDX.Toolkit.Input.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.XInput, Version=2.6.2.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(SharpDXPackageBinDir)\SharpDX.XInput.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -95,6 +126,7 @@
     <Compile Include="EffectProject.cs" />
     <Compile Include="FileManager.cs" />
     <Compile Include="MonochromeEffect.cs" />
+    <Compile Include="MoreLinq\MoreEnumerable.MaxBy.cs" />
     <Compile Include="ProjectControl.cs" />
     <Compile Include="ScriptControl.cs" />
     <Compile Include="Util.cs" />
@@ -157,22 +189,8 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SharpMasaLib\MasaLibXNA\MasaLibXNA.csproj">
-      <Project>{c91dc223-ed7f-4e12-b465-fba807f6817a}</Project>
-      <Name>MasaLibXNA</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\SharpMasaLib\MasaLib\MasaLib.csproj">
-      <Project>{badd7c9a-bc50-46cf-882c-58d597dc8495}</Project>
-      <Name>MasaLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\SharpMasaLib\ParticleEngine\ParticleEngine.csproj">
-      <Project>{30d007cc-761b-4df9-a4c5-14b52d76bf79}</Project>
-      <Name>ParticleEngine</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\SharpMasaLib\ScriptEngine\ScriptEngine.csproj">
-      <Project>{62865417-0f86-47a2-97e6-1dea541f7b23}</Project>
-      <Name>ScriptEngine</Name>
-    </ProjectReference>
+    <Content Include="Assimp32.dll" />
+    <Content Include="Assimp64.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
