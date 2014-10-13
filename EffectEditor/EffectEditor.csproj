@@ -127,15 +127,10 @@
     <Compile Include="FileManager.cs" />
     <Compile Include="MonochromeEffect.cs" />
     <Compile Include="MoreLinq\MoreEnumerable.MaxBy.cs" />
+    <Compile Include="PreviewWindow.cs" />
     <Compile Include="ProjectControl.cs" />
     <Compile Include="ScriptControl.cs" />
     <Compile Include="Util.cs" />
-    <Compile Include="XNAControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="XNAControl.Designer.cs">
-      <DependentUpon>XNAControl.cs</DependentUpon>
-    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -170,9 +165,6 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="XNAControl.resx">
-      <DependentUpon>XNAControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="multi.ps">

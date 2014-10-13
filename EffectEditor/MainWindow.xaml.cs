@@ -21,7 +21,7 @@ namespace EffectEditor
 	{
 		public static IntPtr WindowHandle;
 		StringWriter ErrorLogger;
-		DispatcherTimer timer;
+		public PreviewWindow XNAControl;
 
 		ProjectControl projectControl;
 		ScriptControl scriptControl;
@@ -34,11 +34,10 @@ namespace EffectEditor
 		public MainWindow()
 		{
 			InitializeComponent();
+			XNAControl = new PreviewWindow(this);
+			XNAControl.Run(previewWindow);
 			//var src = System.Windows.Interop.HwndSource.FromVisual(scriptCode);
 			//SendMessage(((System.Windows.Interop.HwndSource)src).Handle, 0x00cb, 1, new int[] { 16 });
-			timer = new DispatcherTimer();
-			timer.Interval = new TimeSpan(167);//16.7ms
-			timer.Tick += new EventHandler(timer_Tick);
 			scriptCode.CommandBindings.AddRange(new[]
 				{
 					new CommandBinding(ApplicationCommands.New, (o,e) => scriptControl.NewFile()),
@@ -97,21 +96,16 @@ namespace EffectEditor
 		
 		public string Code { get; set; }
 
-		void timer_Tick(object sender, EventArgs e)
-		{
-			XNAControl.Draw();
-		}
+		
 
 		protected override void OnSourceInitialized(EventArgs e)
 		{
 			base.OnSourceInitialized(e);
 			WindowHandle = new System.Windows.Interop.WindowInteropHelper(this).Handle;
-			XNAControl.Window = this;
 			//new System.Windows.Interop.HwndSource(
 			itemsList.ItemsSource = XNAControl.PMIDatas;
 			XNAControl.EffectProject.OnScriptPathChanged = UpdateScriptList;
 
-			timer.Start();
 			if (latestProjects.Items.Count > 0)
 			{
 				projectControl.OpenProject(latestProjects.Items.OfType<MenuItem>().First().Header as string);
@@ -120,7 +114,6 @@ namespace EffectEditor
 
 		protected override void OnClosed(EventArgs e)
 		{
-			timer.Stop();
 			base.OnClosed(e);
 
 		}
@@ -444,18 +437,12 @@ namespace EffectEditor
 
 		private void window_Activated(object sender, EventArgs e)
 		{
-			if (timer != null)
-			{
-				timer.Start();
-			}
+			
 		}
 
 		private void window_Deactivated(object sender, EventArgs e)
 		{
-			if (timer != null)
-			{
-				timer.Stop();
-			}
+			
 		}
 
 		private void is2DCheckBox_Checked(object sender, RoutedEventArgs e)
@@ -482,9 +469,9 @@ namespace EffectEditor
 		{
 			int width = controlWidth.Value.GetValueOrDefault(controlWidth.DefaultValue.Value);
 			int height = controlHeight.Value.GetValueOrDefault(controlHeight.Value.Value);
-			windowsFormsHost1.Width = width;
-			windowsFormsHost1.Height = height;
-			XNAControl.ChangeSize(width, height);
+			//windowsFormsHost1.Width = width;
+			//windowsFormsHost1.Height = height;
+			//XNAControl.ChangeSize(width, height);
 			UpdateLayout();
 
 			//XNAControl.Width = controlWidth.Value.GetValueOrDefault(controlWidth.DefaultValue.Value);

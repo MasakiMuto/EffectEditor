@@ -14,7 +14,7 @@ namespace EffectEditor
 	class ProjectControl
 	{
 		MainWindow window;
-		XNAControl XnaControl { get { return window.XNAControl; } }
+		PreviewWindow XnaControl { get { return window.XNAControl; } }
 		FileManager projectFileManager;
 		PMIDict lastState;
 		public string ProjectFileName { get { return projectFileManager.FileName; } }
@@ -158,7 +158,7 @@ namespace EffectEditor
 			}
 			catch (Exception e)
 			{
-				EffectEditor.XNAControl.ShowExceptionBox(e);
+				EffectEditor.PreviewWindow.ShowExceptionBox(e);
 			}
 
 		}

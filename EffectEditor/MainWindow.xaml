@@ -62,18 +62,11 @@
         <DockPanel x:Name="dockPanel1"
                    HorizontalAlignment="Stretch"
                    DockPanel.Dock="Top"
+                   Background="AliceBlue"
                    d:LayoutOverrides="Height">
-            <WindowsFormsHost x:Name="windowsFormsHost1"
-                              Width="400"
-                              Height="480"
-                              Margin="2"
-                              Panel.ZIndex="1"
-                              DockPanel.Dock="Left"
-                              ScrollViewer.VerticalScrollBarVisibility="Disabled">
-                <xn:XNAControl x:Name="XNAControl"
-                               Width="400"
-                               Height="480" />
-            </WindowsFormsHost>
+
+            <Border x:Name="previewWindow" Width="400" Height="480" DockPanel.Dock="Left"/>
+
             <DockPanel MinHeight="{Binding MinHeight, ElementName=windowsFormsHost1}">
                 <StackPanel x:Name="stackPanel3"
                             VerticalAlignment="Bottom"
@@ -112,12 +105,12 @@
                                      Height="{Binding ActualHeight, ElementName=stackPanel}">
                                 <ListBox.Resources>
                                     <Style TargetType="{x:Type ListBoxItem}">
-                                        <EventSetter Event="MouseDoubleClick" Handler="ScriptFileItemDoubleClicked"/>
+                                        <EventSetter Event="Control.MouseDoubleClick" Handler="ScriptFileItemDoubleClicked"/>
                                     </Style>
                                 </ListBox.Resources>
                             </ListBox>
-                                     
-                                     
+
+
 
                             <TextBox x:Name="scriptCode"
                                      Height="{Binding ActualHeight, ElementName=stackPanel}"
@@ -163,19 +156,19 @@
                                          SelectionChanged="itemsList_SelectionChanged"
                                          SourceUpdated="itemsList_SourceUpdated">
                                     <ListBox.ItemContainerStyle>
-                                        <Style TargetType="ListBoxItem">
-                                            <EventSetter Event="PreviewMouseLeftButtonDown" Handler="particleListItemClick" />
+                                        <Style TargetType="{x:Type ListBoxItem}">
+                                            <EventSetter Event="UIElement.PreviewMouseLeftButtonDown" Handler="particleListItemClick" />
                                         </Style>
                                     </ListBox.ItemContainerStyle>
                                 </ListBox>
-                               
+
                             </DockPanel>
                             <DockPanel DockPanel.Dock="Right" Width="120" d:LayoutOverrides="Height" >
-                            	<TextBlock TextWrapping="Wrap" VerticalAlignment="Top" DockPanel.Dock="Top" Text="Texture List"/>
-                            	<Canvas Height="100" VerticalAlignment="Bottom" Width="100" Background="#FF6C6C6C" DockPanel.Dock="Bottom">
-                            		<Image x:Name="listTexturePreview" Height="100" Width="100" VerticalAlignment="Top" d:LayoutOverrides="Width"/>
-                            	</Canvas>
-                            	<ListBox x:Name="textureList" DockPanel.Dock="Top" SelectionChanged="textureList_SelectionChanged"/>
+                                <TextBlock TextWrapping="Wrap" VerticalAlignment="Top" DockPanel.Dock="Top" Text="Texture List"/>
+                                <Canvas Height="100" VerticalAlignment="Bottom" Width="100" Background="#FF6C6C6C" DockPanel.Dock="Bottom">
+                                    <Image x:Name="listTexturePreview" Height="100" Width="100" VerticalAlignment="Top" d:LayoutOverrides="Width"/>
+                                </Canvas>
+                                <ListBox x:Name="textureList" DockPanel.Dock="Top" SelectionChanged="textureList_SelectionChanged"/>
                             </DockPanel>
                             <StackPanel DockPanel.Dock="Right">
                                 <DockPanel Margin="0,2">
@@ -201,9 +194,9 @@
                                            HorizontalAlignment="Right"
                                            VerticalAlignment="Top"
                                            OpacityMask="Black" >
-                                    	<Image.Effect>
-                                    		<ShaderEffectLibrary:MonochromeEffect FilterColor="#FFC04040"/>
-                                    	</Image.Effect>
+                                        <Image.Effect>
+                                            <ShaderEffectLibrary:MonochromeEffect FilterColor="#FFC04040"/>
+                                        </Image.Effect>
                                     </Image>
                                     <ext:ColorCanvas x:Name="textureColor"
                                                      HexadecimalString="#FFffffff"
@@ -231,8 +224,8 @@
                                     </ComboBox>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
-                                	<Label Content="Layer" Width="{Binding Width, ElementName=label1}"/>
-                                	<ext:IntegerUpDown x:Name="layerNumber" Minimum="-64" Maximum="64" Value="0"/>
+                                    <Label Content="Layer" Width="{Binding Width, ElementName=label1}"/>
+                                    <ext:IntegerUpDown x:Name="layerNumber" Minimum="-64" Maximum="64" Value="0"/>
                                 </StackPanel>
                             </StackPanel>
                         </DockPanel>
@@ -272,7 +265,7 @@
                                         Click="controlSizeChanged"
                                         Content="適用" />
                             </StackPanel>
-                            <Label>背景色</Label>
+                            <Label Content="背景色"/>
                             <ext:ColorCanvas x:Name="backgroundColor"
                                                      HexadecimalString="#000000"
                                                      SelectedColor="Black" 
