@@ -467,6 +467,7 @@ namespace EffectEditor
 
 		private void controlSizeChanged(object sender, RoutedEventArgs e)
 		{
+			return;
 			int width = controlWidth.Value.GetValueOrDefault(controlWidth.DefaultValue.Value);
 			int height = controlHeight.Value.GetValueOrDefault(controlHeight.Value.Value);
 			//windowsFormsHost1.Width = width;

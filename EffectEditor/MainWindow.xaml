@@ -11,22 +11,19 @@
         x:Name="window"
         Title="Masa Effect Editor"
         Height="600"
+        Width="960"
         MinWidth="400"
-        MinHeight="501"
         Activated="window_Activated"
-        d:DesignWidth="1019"
         Deactivated="window_Deactivated"
-        ResizeMode="CanResizeWithGrip"
-        WindowStyle="ThreeDBorderWindow"
-        mc:Ignorable="d" Closing="window_Closing">
+        Closing="window_Closing">
     <DockPanel>
         <Menu x:Name="menu1"
               HorizontalAlignment="Stretch"
               VerticalAlignment="Top"
-              HorizontalContentAlignment="Stretch"
               DockPanel.Dock="Top"
-              d:LayoutOverrides="VerticalAlignment">
-            <MenuItem d:IsLocked="True" Header="ファイル">
+              HorizontalContentAlignment="Stretch"
+             >
+            <MenuItem Header="ファイル">
                 <MenuItem x:Name="new"
                           Command="ApplicationCommands.New"
                           CommandTarget="{Binding ElementName=scriptCode}" />
@@ -46,7 +43,7 @@
                 <Separator />
                 <MenuItem Click="setTexturePathClick" Header="テクスチャパス設定" />
             </MenuItem>
-            <MenuItem d:IsLocked="True" Header="編集">
+            <MenuItem Header="編集">
                 <MenuItem Command="ApplicationCommands.Undo" />
                 <MenuItem Command="ApplicationCommands.Redo" />
                 <Separator />
@@ -59,15 +56,17 @@
         <StatusBar VerticalAlignment="Bottom" DockPanel.Dock="Bottom">
             <StatusBarItem x:Name="statusLabel" Content="Ready..." />
         </StatusBar>
-        <DockPanel x:Name="dockPanel1"
-                   HorizontalAlignment="Stretch"
-                   DockPanel.Dock="Top"
-                   Background="AliceBlue"
-                   d:LayoutOverrides="Height">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Border x:Name="previewWindow" />
 
-            <Border x:Name="previewWindow" Width="400" Height="480" DockPanel.Dock="Left"/>
-
-            <DockPanel MinHeight="{Binding MinHeight, ElementName=windowsFormsHost1}">
+            <DockPanel MinHeight="{Binding MinHeight, ElementName=windowsFormsHost1}" Grid.Column="1">
                 <StackPanel x:Name="stackPanel3"
                             VerticalAlignment="Bottom"
                             DockPanel.Dock="Bottom"
@@ -163,10 +162,10 @@
                                 </ListBox>
 
                             </DockPanel>
-                            <DockPanel DockPanel.Dock="Right" Width="120" d:LayoutOverrides="Height" >
+                            <DockPanel DockPanel.Dock="Right" Width="120" >
                                 <TextBlock TextWrapping="Wrap" VerticalAlignment="Top" DockPanel.Dock="Top" Text="Texture List"/>
                                 <Canvas Height="100" VerticalAlignment="Bottom" Width="100" Background="#FF6C6C6C" DockPanel.Dock="Bottom">
-                                    <Image x:Name="listTexturePreview" Height="100" Width="100" VerticalAlignment="Top" d:LayoutOverrides="Width"/>
+                                    <Image x:Name="listTexturePreview" Height="100" Width="100" VerticalAlignment="Top"/>
                                 </Canvas>
                                 <ListBox x:Name="textureList" DockPanel.Dock="Top" SelectionChanged="textureList_SelectionChanged"/>
                             </DockPanel>
@@ -276,7 +275,7 @@
                     </TabItem>
                 </TabControl>
             </DockPanel>
-        </DockPanel>
-
+        </Grid>
+        
     </DockPanel>
 </Window>

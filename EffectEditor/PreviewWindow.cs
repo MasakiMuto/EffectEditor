@@ -29,8 +29,8 @@ namespace EffectEditor
 			MainWindow = mw;
 			graphicDeviceManager = new GraphicsDeviceManager(this)
 			{
-				PreferredBackBufferWidth = 400,
-				PreferredBackBufferHeight = 480,
+				//PreferredBackBufferWidth = 400,
+				//PreferredBackBufferHeight = 480,
 			};
 			IsMouseVisible = true;
 		}
