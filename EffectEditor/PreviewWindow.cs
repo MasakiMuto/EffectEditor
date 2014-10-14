@@ -29,8 +29,8 @@ namespace EffectEditor
 			MainWindow = mw;
 			graphicDeviceManager = new GraphicsDeviceManager(this)
 			{
-				//PreferredBackBufferWidth = 400,
-				//PreferredBackBufferHeight = 480,
+				PreferredBackBufferWidth = 400,
+				PreferredBackBufferHeight = 480,
 			};
 			IsMouseVisible = true;
 		}
@@ -91,17 +91,17 @@ namespace EffectEditor
 
 		protected override void Update(GameTime gameTime)
 		{
-			base.Update(gameTime);
 			if (!IsActive) return;
 			EffectProject.Update();
+			base.Update(gameTime);
 		}
 
 		protected override void Draw(GameTime gameTime)
 		{
-			base.Draw(gameTime);
 			if (!IsActive) return;
-			GraphicsDevice.Clear(Color.CornflowerBlue);
+			GraphicsDevice.Clear(Color.Black);
 			EffectProject.Draw();
+			base.Draw(gameTime);
 		}
 
 		protected override void Dispose(bool disposeManagedResources)

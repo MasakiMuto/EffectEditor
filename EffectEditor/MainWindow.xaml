@@ -7,6 +7,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:my="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
         xmlns:xn="clr-namespace:EffectEditor"
+        xmlns:toolkit="clr-namespace:SharpDX.Toolkit;assembly=SharpDX.Toolkit.Game"
         xmlns:ShaderEffectLibrary="clr-namespace:ShaderEffectLibrary" x:Class="EffectEditor.MainWindow"
         x:Name="window"
         Title="Masa Effect Editor"
@@ -64,7 +65,7 @@
                 <ColumnDefinition Width="400" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Border x:Name="previewWindow" />
+            <toolkit:SharpDXElement Height="480" x:Name="previewWindow" SendResizeToGame="False" LowPriorityRendering="False" />
 
             <DockPanel MinHeight="{Binding MinHeight, ElementName=windowsFormsHost1}" Grid.Column="1">
                 <StackPanel x:Name="stackPanel3"
